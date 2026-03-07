@@ -1,0 +1,444 @@
+/* Google Fonts: add in HTML <head> instead of @import
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+*/
+
+/* Theme variables (modern browsers) */
+:root {
+  --bg1: #d7fbe8;        /* light green background */
+  --bg2: #e3f2fd;        /* light blue background */
+  --glass: rgba(255, 255, 255, 0.7);
+  --accent1: #4CAF50;     /* EV Green */
+  --accent2: #2196F3;     /* EV Blue */
+  --accent3: #43cea2;     /* Gradient Green */
+  --accent4: #185a9d;     /* Gradient Blue */
+  --muted: rgba(0, 0, 0, 0.6);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* fallback background */
+  background: linear-gradient(180deg, #d7fbe8, #e3f2fd);
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(0,198,255,0.06), transparent),
+              linear-gradient(180deg, var(--bg1), var(--bg2));
+
+  color: #222; /* readable text */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* General text color for clarity */
+.card.glass,
+.feature-box,
+.role-card,
+.hero .sub,
+.card,
+.glass {
+  color: #222 !important;
+}
+.role-card p,
+.feature-box p,
+.card.glass p {
+  color: var(--muted) !important;
+}
+
+/* ================= Preloader ================= */
+#preloader {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(2,6,23,0.95), rgba(6,18,32,0.95));
+  z-index: 99999;
+  transition: opacity .6s ease, visibility .6s;
+}
+.preloader__box {
+  width: 140px; height: 140px; border-radius: 18px;
+  background: var(--accent1); /* fallback */
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+  animation: spin 2s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0) } 100% { transform: rotate(360deg) } }
+.preloader--hidden { opacity: 0; visibility: hidden; }
+
+/* ================= Navbar ================= */
+.navbar {
+  background: var(--accent1); /* fallback solid */
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  background-color: rgba(255, 255, 255, 0.85); /* fallback for no gradient */
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  -webkit-backdrop-filter: blur(6px); /* Safari */
+  backdrop-filter: blur(6px);         /* modern */
+}
+
+/* ================= Hero ================= */
+.hero {
+  padding: 3.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero .headline {
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 1.05;
+
+  /* fallback solid color */
+  color: var(--accent1);
+
+  /* gradient text */
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+   background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .sub {
+  color: var(--muted);
+  max-width: 46rem;
+}
+
+/* ================= Maps ================= */
+#homeMap, #driverMap {
+  height: 60vh;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.2);
+  transition: transform .6s cubic-bezier(.2,.9,.2,1);
+}
+#homeMap.loading {
+  filter: blur(4px) grayscale(.2);
+  transform: scale(.995);
+}
+
+/* ================= Glass Cards ================= */
+.card.glass {
+  background: #fff; /* fallback */
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.92));
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 10px 40px rgba(2,6,23,0.15);
+  border-radius: 14px;
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* ================= Role Cards ================= */
+.role-card {
+  padding: 2rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform .45s cubic-bezier(.2,.9,.3,1), box-shadow .35s, background .35s;
+
+  background: #fff; /* fallback */
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.92));
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.role-card .icon {
+  width: 86px; height: 86px;
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  background: var(--accent1); /* fallback */
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  box-shadow: 0 8px 30px rgba(0,198,255,0.09);
+  transition: transform .3s;
+}
+.role-card h3 { margin-top: .5rem; margin-bottom: .5rem; font-weight: 600; }
+.role-card p { font-size: .95rem; }
+
+.role-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(2,6,23,0.2);
+}
+.role-card:hover .icon {
+  transform: scale(1.06) rotate(-6deg);
+  box-shadow: 0 18px 48px rgba(0,198,255,0.12);
+}
+
+/* ================= Buttons ================= */
+.btn.btn-cta {
+  background: var(--accent3); /* fallback */
+  background: linear-gradient(90deg, var(--accent3), var(--accent4));
+  color: white;
+  border-radius: 999px;
+  padding: .6rem 1.4rem;
+  border: none;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn.btn-cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* ================= Pulsing Marker ================= */
+.leaflet-marker-icon.custom-marker {
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.leaflet-marker-icon.custom-marker .pulse {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent1); /* fallback */
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  position: relative; z-index: 2;
+}
+.leaflet-marker-icon.custom-marker::after {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,198,255,0.18), transparent);
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+/* Password help text */
+.password-match {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Colors for match/mismatch */
+.password-match.text-success {
+  color: green;
+}
+
+.password-match.text-danger {
+  color: red;
+}
+
+/* Keep input-group button consistent with input */
+.input-group .btn {
+  border: 1px solid #ced4da;
+}
+
+.btn.btn-brand {
+  background: var(--accent1);
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.btn.btn-brand:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* ================= Hero Section Enhancements ================= */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('https://source.unsplash.com/1600x400/?electric,car,charging') center/cover no-repeat;
+    border-radius: 12px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(138, 191, 217, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #4CAF50, #00ff91, #43cea2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientText 3s ease infinite;
+}
+
+.hero-sub {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
+}
+
+.btn-outline-primary {
+    color: #ff0000;
+    border-color: #fff;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+.btn-outline-primary:hover {
+    background-color: rgba(98, 255, 0, 0.2);
+    border-color: #fff;
+}
+
+/* Floating Circles Animation */
+.floating-circles span {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: rgb(141, 238, 193);
+    border-radius: 50%;
+    animation: float 10s infinite;
+}
+
+.floating-circles span:nth-child(1) { left: 10%; animation-delay: 0s; }
+.floating-circles span:nth-child(2) { left: 30%; width:25px; height:25px; animation-delay: 2s; }
+.floating-circles span:nth-child(3) { left: 50%; width:15px; height:15px; animation-delay: 4s; }
+.floating-circles span:nth-child(4) { left: 70%; width:20px; height:20px; animation-delay: 6s; }
+.floating-circles span:nth-child(5) { left: 90%; width:30px; height:30px; animation-delay: 8s; }
+
+@keyframes float {
+    0% { transform: translateY(0px); opacity: 0.3; }
+    50% { transform: translateY(-50px); opacity: 0.7; }
+    100% { transform: translateY(0px); opacity: 0.3; }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+@keyframes pulse {
+  0%   { transform: translate(-50%,-50%) scale(.85); opacity: .9 }
+  70%  { transform: translate(-50%,-50%) scale(1.6); opacity: 0 }
+  100% { opacity: 0 }
+}
+
+/* ================= Utilities ================= */
+.text-muted { color: var(--muted) !important; }
+.small { font-size: .85rem; color: var(--muted) }
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+  .hero .headline { font-size: 1.6rem; }
+  #homeMap, #driverMap { height: 48vh; }
+}
+
+
+/* ================= Admin Dashboard Enhancements ================= */
+
+/* Hero section override for Admin (uses same structure) */
+.hero-section.admin {
+  background: url('https://source.unsplash.com/1600x400/?electric,energy,charging-station') center/cover no-repeat;
+  height: 360px;
+}
+.hero-section.admin .hero-overlay {
+  background: rgba(33, 150, 243, 0.4);
+}
+.hero-section.admin .hero-title {
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass card consistent with overall style */
+.card.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card.glass:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.2);
+}
+
+/* Glass table styling */
+.table.glass-table {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.table.glass-table thead {
+  background: linear-gradient(90deg, var(--accent3), var(--accent4));
+  color: #fff;
+}
+.table.glass-table tbody tr:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  transition: 0.2s;
+}
+
+/* Status badges (match color scheme) */
+.badge.bg-success { background-color: var(--accent1) !important; }
+.badge.bg-secondary { background-color: #9e9e9e !important; }
+.badge.bg-danger { background-color: #e53935 !important; }
+.badge.bg-warning { background-color: #ffb300 !important; color: #000 !important; }
+
+/* Admin buttons */
+.btn-admin {
+  background: linear-gradient(90deg, var(--accent3), var(--accent4));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+.btn-admin:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  opacity: 0.9;
+}
+
+/* Floating circles for background animation */
+.floating-circles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.floating-circles span {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: rgba(67, 206, 162, 0.25);
+  border-radius: 50%;
+  animation: float 12s infinite ease-in-out;
+}
+.floating-circles span:nth-child(1) { left: 15%; animation-delay: 0s; }
+.floating-circles span:nth-child(2) { left: 35%; width: 28px; height: 28px; animation-delay: 3s; }
+.floating-circles span:nth-child(3) { left: 55%; width: 16px; height: 16px; animation-delay: 6s; }
+.floating-circles span:nth-child(4) { left: 75%; width: 22px; height: 22px; animation-delay: 9s; }
+.floating-circles span:nth-child(5) { left: 90%; width: 34px; height: 34px; animation-delay: 12s; }
+
+@keyframes float {
+  0%   { transform: translateY(0px); opacity: 0.4; }
+  50%  { transform: translateY(-50px); opacity: 0.8; }
+  100% { transform: translateY(0px); opacity: 0.4; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section.admin .hero-title {
+    font-size: 1.8rem;
+  }
+  .table.glass-table {
+    font-size: 0.9rem;
+  }
+}

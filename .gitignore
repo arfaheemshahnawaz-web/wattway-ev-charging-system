@@ -1,0 +1,6 @@
+vendor/
+.env
+node_modules
+uploads/
+.DS_Store
+composer.lock

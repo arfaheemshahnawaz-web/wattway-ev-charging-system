@@ -1,0 +1,49 @@
+-- WattWay schema
+CREATE TABLE IF NOT EXISTS tbl_admins (
+  admin_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tbl_drivers (
+  driver_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tbl_station_operators (
+  operator_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tbl_stations (
+  station_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  lat DECIMAL(10,7) NOT NULL,
+  lng DECIMAL(10,7) NOT NULL,
+  plug_type VARCHAR(50) NOT NULL,
+  watt_kw INT NOT NULL,
+  approved TINYINT(1) DEFAULT 0,
+  added_by INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (added_by) REFERENCES tbl_station_operators(operator_id)
+);
+
+CREATE TABLE IF NOT EXISTS tbl_bookings (
+  booking_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  station_id INT NOT NULL,
+  start_time DATETIME,
+  end_time DATETIME,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES tbl_drivers(driver_id),
+  FOREIGN KEY (station_id) REFERENCES tbl_stations(station_id)
+);

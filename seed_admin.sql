@@ -1,0 +1,1 @@
+INSERT INTO tbl_admins (name,email,password) VALUES ('Admin','admin@wattway.local', '$2y$10$3yZqvZkA1m6qC2f5Ywq7L.1mV6xTq7fZb5d0cJ0cV7z8mQqK7Tg3a'); -- password: Admin@123
